@@ -25,7 +25,7 @@ SECRET_KEY = 'a(u!tj2jy1@3c+$wdbx69_1$p+e)ui8zd!m3-ek%i9*lg1r1ch'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ergoproxy-0001.herokuapp.com']
 
 
 # Application definition
