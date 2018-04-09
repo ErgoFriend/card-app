@@ -1,7 +1,7 @@
 from django.conf.urls import url
 from . import views
 from django.contrib.auth import views as auth_views
-
+app_name = 'accounts'
 urlpatterns = [
     url(r'^$', views.TopPageView.as_view(), name='index'),
     url(r'^mypage/$', views.MyPageView.as_view(), name='mypage'),
