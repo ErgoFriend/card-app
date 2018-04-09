@@ -1,0 +1,70 @@
+{% extends "iniita/base.html" %} {% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-xl-9 col-lg-9">
+            <div class="card card_title text-center">
+                <h3 class="card-title">カード新着</h3>
+            </div>
+            <!-- Content -->
+            <div class="row align-items-center">
+                {% if cards %} {% for card in cards %}
+                <div class="col-lg-6 col-xl-6">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <a href="{% url 'detail' card.id %}">
+                                <h4 class="card-title">{{ card.title }}</h4>
+                            </a>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ card.user.username }}</h6>
+                            <p class="card-text">{{ card.content | linebreaksbr }}</p>
+                            <p class="card-text">
+                                <small class="text-muted">{{ card.card_date }}</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %} {% else %}
+                <div class="card">
+                    <div class="card-body">
+                        <a href="#!">
+                            <h4 class="card-title">No card</h4>
+                        </a>
+                        <h6 class="card-subtitle mb-2 text-muted">No card</h6>
+                        <p class="card-text">No card</p>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <!-- リクエストの場所 -->
+        <div class="col-xl-3 col-lg-3">
+            <div class="card card_title text-center">
+                リクエスト新着
+            </div>
+            <!-- Content -->
+            {% if requests %} {% for request in requests %}
+            <div class="card col-xl-12 col-lg-12">
+                <div class="card-body">
+                    <a href="#!">
+                        {{ request.title }}
+                    </a>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ request.user }}</h6>
+                    <p class="card-text">{{ request.content | linebreaksbr }}</p>
+                </div>
+            </div>
+            {% endfor %} {% else %}
+            <div class="card">
+                <div class="card-body">
+                    <a href="#!">
+                        <h5 class="card-title">No request</h5>
+                    </a>
+                    <h6 class="card-subtitle mb-2 text-muted">No request</h6>
+                    <p class="card-text">No request</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

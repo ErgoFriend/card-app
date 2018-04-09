@@ -1,0 +1,79 @@
+{% extends "iniita/base.html" %} {% block content %}
+<div class="mainnn">
+    <div class="card text-center">
+        <div class="card-body">
+            <h3 class="card-title">{{ user.username }}</h3>
+        </div>
+    </div>
+
+    <div class="row align-items-center">
+        {% if cards %} {% for card in cards %} {% if card.user.username == user.username %}
+        <div class="col-lg-4 col-xl-4">
+            <div class="card text-center">
+                <div class="card-body">
+                    <a href="{% url 'detail' card.id %}">
+                        <h4 class="card-title">{{ card.title }}</h4>
+                    </a>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ card.user.username }}</h6>
+                    <p class="card-text">{{ card.content | linebreaksbr }}</p>
+                    <p class="card-text">
+                        <small class="text-muted">{{ card.card_date }}</small>
+                    </p>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <form action="{% url 'delete' card.id %}" method="POST">{% csrf_token %}
+                            <button type="submit" class="btn btn-danger">削除</button>
+                        </form>
+                        <button class="btn btn-primary" href="#!" data-toggle="modal" data-target="#exampleModa3" dada-title={{card.title}} data-content={{card.content}}>編集</butta>
+                    </div>
+                </div>
+            </div>
+        </div> {% endif %} {% endfor %} {% else %}
+        <div class="card">
+            <div class="card-body">
+                <a href="#!">
+                    <h4 class="card-title">No card</h4>
+                </a>
+                <h6 class="card-subtitle mb-2 text-muted">No card</h6>
+                <p class="card-text">No card</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<!-- 新規カード START -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModa3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">編集</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{% url 'index' %}" method="POST">{% csrf_token %}
+                            <div class="form-group row">
+                                <label for="inputTitle" class="col-sm-3 col-form-label">タイトル</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="inputtitle" name="cardtitle" placeholder="タイトル" value=data-title>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputcontent" class="col-sm-3 col-form-label">内容</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="inputcontent" name="cardcontent" placeholder="内容" value="{{ card.content }}">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">やめる</button>
+                                <button type="submit" class="btn btn-primary" name="create_card_btn">更新</button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- 新規カード END-->
+        {% endblock %}

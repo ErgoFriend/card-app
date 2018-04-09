@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <nav class="navbar fixed-top navbar-dark bg-dark">
+        <!-- Navbar content -->
+        <a class="navbar-brand" href="/iniita">Iniita</a>
+        <ul class="nav mr-auto">
+            <li class="nav-item">
+                <!-- 新規カード START -->
+                <!-- Button trigger modal -->
+                <a class="nav-link" href="#!" data-toggle="modal" data-target="#exampleModal">
+                    新規カード
+                </a>
+            </li>
+            <!-- 新規カード END-->
+            <li class="nav-item">
+                <!-- 新規リクエスト START -->
+                <!-- Button trigger modal -->
+                <a class="nav-link" href="#!" data-toggle="modal" data-target="#exampleModa2">
+                    新規リクエスト
+                </a>
+            </li>
+            <!-- 新規リクエスト END-->
+        </ul>
+        <!-- 検索 -->
+        <ul class="nav justify-content-center mr-auto">
+            <li class="nav-item">
+                <form class="form-inline">
+                    <input class="form-control mr-sm-2" type="search" placeholder="キーワード">
+                    <button class="btn btn-outline-info my-2 my-sm-0" type="submit">検索</button>
+                </form>
+            </li>
+        </ul>
+        <!-- 検索 -->
+        {% if user.is_authenticated %}
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img class="rounded-circle img-responsive img-thumbnail" src="http://itojisan.xyz/wp-content/uploads/2016/09/acount-214x214.png"
+                    width="28" height="28"> {{ user.username }}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <a class="dropdown-item" href="{% url 'accounts:mypage' %}">権限</a>
+                <a class="dropdown-item" href="{% url 'mypage' %}">マイページ</a>
+                <a class="dropdown-item" href="{% url 'accounts:logout' %}">ログアウト</a>
+            </div>
+        </div>
+        {% else %}
+        <a class="text-white" href="{% url 'accounts:login' %}">
+            ログイン
+        </a> {% endif %}
+    </nav>
+    <!-- 新規カード START -->
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">新規カード</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'index' %}" method="POST">{% csrf_token %}
+                        <div class="form-group row">
+                            <label for="inputTitle" class="col-sm-3 col-form-label">タイトル</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="inputtitle" name="cardtitle" placeholder="タイトル">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputcontent" class="col-sm-3 col-form-label">内容</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="inputcontent" name="cardcontent" placeholder="内容">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">やめる</button>
+                            <button type="submit" class="btn btn-primary" name="create_card_btn">作成</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 新規カード END-->
+    <!-- 新規リクエスト START -->
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModa2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">新規リクエスト</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'index' %}" method="POST">{% csrf_token %}
+                        <div class="form-group row">
+                            <label for="inputTitle" class="col-sm-3 col-form-label">タイトル</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="inputtitle" name="requesttitle" placeholder="タイトル">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputcontent" class="col-sm-3 col-form-label">内容</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="inputcontent" name="requestcontent" placeholder="内容">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">やめる</button>
+                            <button type="submit" class="btn btn-primary" name="create_request_btn">リクエスト</button>
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- 新規リクエスト END-->
+    <div class="main">
+        {% block content %} {% endblock %}
+    </div>
+</body>
+
+</html>
