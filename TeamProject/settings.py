@@ -124,6 +124,9 @@ LOGOUT_REDIRECT_URL='/iniita/accounts/login/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+#以下を追記しました
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
