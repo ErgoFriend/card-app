@@ -1,5 +1,5 @@
 from django.shortcuts import render
-import paramiko
+#import paramiko
 # Create your views here.
 
 def index(request):
